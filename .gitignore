@@ -1,0 +1,6 @@
+.idea/
+myenv/
+ghostdriver.log
+details.txt
+__pycache__/
+logs/
