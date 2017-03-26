@@ -1,5 +1,5 @@
 # southwest-scraper
-This Python script will allow you to find cheap roundtrips on Southwest, especially if you have flexible dates of travel (for example, you want to visit your long-distance significant other on any weekend in the next few months).  Since airlines change ticket prices throughout the week, leaving this running will allow you to wait until prices drop under a certain threshold.  Once a suitable flight is found, the script can send you a text message to notify you.  This program is different from others in that it considers multiple different airports and travel dates.
+This Python script will allow you to find cheap roundtrips on Southwest, especially if you have flexible dates of travel (for example, any weekend in the next six months).  Since airlines change ticket prices throughout the week, leaving this running will allow you to wait until prices drop under a certain threshold before booking.  Once the script finds a suitable flight, it will send you a text message notification.  This program is different from other flight scrapers in that it considers multiple different airports and travel dates.
 
 ## Installation
 ### Setup
@@ -12,8 +12,8 @@ This Python script will allow you to find cheap roundtrips on Southwest, especia
 
 ### Configuration
 1. Open `config.ini`.  Input your Twilio details (from the [Twilio console](https://www.twilio.com/console)) into the top part of the file.
-2. Depending on which option you chose for #3 above, input the appropriate Phantom options (**if you did not take the alternative option, set** `use_custom_phantom_path` **to true**).
-3. Scroll to the very bottom of `app.py`.  Input your desired itineraries.
+2. Depending on which option you chose for \#4 above, input the appropriate Phantom options (**if you did not take the alternative option, set** `use_custom_phantom_path` **to true**).
+3. Scroll to the very bottom of `app.py`.  Input your desired itineraries.  For example, if you wanted to travel any weekend for the next four weeks, you would create four Itinerary objects, one per each weekend.
 
     ```python
     # scan() takes an array of Itineraries
@@ -31,10 +31,11 @@ This Python script will allow you to find cheap roundtrips on Southwest, especia
     ```
 
 ### Execution
-1. Run `python3 app.py`.  Leave it running, and it will scrape according to the interval you configured and notify you via text for important events (start scraping, stop scraping, found a cheap flight).  You can also put this script on a remote server and leave it running.
+1. Run `python3 app.py`.  Leave it running, and it will scrape according to the interval you configured and notify you via text for important events (start scraping, stop scraping, found a cheap flight).  You can also leave this script running on a remote server.
+2. If you want to add/remove Itineraries, you must restart the program (Ctrl-C to stop, then follow the above step after editing the Python file).
 
 ## Contributions
-Any contributions would be welcome!  Please try to follow the style conventions used throughout the rest of the script (though style changes are appreciated if appropriate -- just be sure to keep everything consistent).  If you find any bugs, please submit an issue and I'll take a look.
+Any contributions would be welcome!  Please try to follow the style conventions used throughout the rest of the script (though project-wide style changes are appreciated if appropriate -- just be sure to keep everything consistent).  If you find any bugs, please submit an issue and I'll take a look.
 
 ## Attributions
-I used the Southwest.com scraping logic from [wcrasta's SWA-Scraper](https://github.com/wcrasta/SWA-Scraper).
+I used the Southwest.com scraping logic from [Warren Crasta's SWA-Scraper](https://github.com/wcrasta/SWA-Scraper).
