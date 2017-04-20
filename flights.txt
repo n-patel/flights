@@ -1,0 +1,15 @@
+begin
+from: STL
+to: SFO, OAK
+leave: 05/30
+return:
+budget: 100
+end
+
+begin
+from: SFO, OAK
+to: LAX, ONT
+leave: 06/16
+return: 06/18
+budget: 200
+end

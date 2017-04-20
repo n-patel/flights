@@ -30,3 +30,39 @@ def init_SMS_messenger(account_sid, auth_token, to_number, from_number):
         print("[%s] Text message sent!" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     return send_SMS
+
+
+def parse_flights_from_file(file_name):
+    flights = []
+    currentFlight = {}
+
+    def parse_line(line):
+        nonlocal currentFlight
+
+        if line == "":
+            return
+        elif line == "begin":
+            pass
+        elif line == "end":
+            flights.append(currentFlight.copy())
+            currentFlight = {}
+        else:
+            attribute, content = line.split(':')
+            content = content.split(',')
+            if content == ['']:
+                content = []
+
+            if   attribute == "to":     currentFlight["to"]     = content
+            elif attribute == "from":   currentFlight["from"]   = content
+            elif attribute == "leave":  currentFlight["leave"]  = content
+            elif attribute == "return": currentFlight["return"] = content
+            elif attribute == "budget": currentFlight["budget"] = int(content[0])
+            else:
+                pass # throw error?
+
+
+    with open(file_name, "r") as f:
+        for line in f:
+            parse_line(line.strip().replace(" ", ""))
+
+    return flights
