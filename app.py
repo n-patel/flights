@@ -93,25 +93,22 @@ def scan():
     """ Scan Southwest for all flights that could create full itineraries. """
 
     send_SMS = init_SMS_messenger(ACCOUNT_SID, AUTH_TOKEN, TO_NUMBER, FROM_NUMBER)
-    print(construct_itineraries())
     while True:
         send_SMS("Starting scan... ({time})".format(time=datetime.now().strftime("%H:%M:%S")))
 
         itineraries = construct_itineraries()
         for itin in itineraries:
-            # Outgoing flights
+
             for flight in itin.generate_outgoing_flights():
                 print("Scraping for " + str(flight))
                 itin.outgoing_flights += scrape_flight_prices(flight)
 
-            # Return flights
-            # Use a dummy flight for one-way flights.
-            # This will be overwritten in the loop if not one-way.
-            itin.return_flights = [Flight("None", "None", "None", 0)]
-            for flight in itin.generate_return_flights():
+            return_flights = itin.generate_return_flights()
+            if not return_flights:
+                itin.return_flights = [Flight("None", "None", "None", 0)]
+            for flight in return_flights:
                 print("Scraping for " + str(flight))
                 itin.return_flights += scrape_flight_prices(flight)
-
 
             # Log all info to a file.
             f = open(LOG_DIR + datetime.now().strftime("%Y.%m.%d.txt"), 'a+')
@@ -123,10 +120,11 @@ def scan():
             log(itin.get_best_roundtrip())
             log("====================================")
             log("==== Round-trips within budget: ====")
-            for r in itin.get_roundtrips_in_budget():
+            trips_in_budget = itin.get_roundtrips_in_budget()
+            for r in trips_in_budget:
                 log(r)
                 send_SMS(r)
-            if len(itin.get_roundtrips_in_budget()) == 0:
+            if trips_in_budget:
                 log("None")
             log("====================================")
 

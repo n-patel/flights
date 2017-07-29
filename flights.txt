@@ -1,15 +1,5 @@
 begin
-from: STL
-to: SFO, OAK
-leave: 05/30
-return:
-budget: 100
-end
-
-begin
-from: SFO, OAK
-to: LAX, ONT
-leave: 06/16
-return: 06/18
-budget: 200
-end
+$150
+airports: OAK, SFO -> PHX
+dates: 09/22 -> 09/24, 09/25
+dates: 10/22 -> 10/24, 10/25

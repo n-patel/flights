@@ -40,26 +40,30 @@ def parse_flights_from_file(file_name):
         nonlocal currentFlight
 
         if line == "":
-            return
-        elif line == "begin":
             pass
-        elif line == "end":
-            flights.append(currentFlight.copy())
+        elif line.startswith('begin'):
             currentFlight = {}
+        elif line.startswith('$'):
+            currentFlight['budget'] = int(line.replace('$', ''))
         else:
             attribute, content = line.split(':')
-            content = content.split(',')
-            if content == ['']:
-                content = []
+            outbound, inbound = content.split('->')
+            if outbound == ['']:
+                outbound = []
+            if inbound == ['']:
+                inbound = []
 
-            if   attribute == "to":     currentFlight["to"]     = content
-            elif attribute == "from":   currentFlight["from"]   = content
-            elif attribute == "leave":  currentFlight["leave"]  = content
-            elif attribute == "return": currentFlight["return"] = content
-            elif attribute == "budget": currentFlight["budget"] = int(content[0])
-            else:
-                pass # throw error?
+            outboundItems, inboundItems = outbound.split(','), inbound.split(',')
 
+            if attribute == 'airports':
+                currentFlight['from'] = outboundItems
+                currentFlight['to'] = inboundItems
+
+            if attribute == 'dates':
+                newFlight = currentFlight.copy()
+                newFlight['leave'] = outboundItems
+                newFlight['return'] = inboundItems
+                flights.append(newFlight)
 
     with open(file_name, "r") as f:
         for line in f:
