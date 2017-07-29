@@ -85,13 +85,18 @@ class Itinerary:
 
         return RoundTrip(out, ret)
 
-    def get_roundtrips_in_budget(self):
+    def get_roundtrips_in_budget(self, num=float('inf')):
         """ Returns a list of all RoundTrips in budget. """
+        self.outgoing_flights.sort(key=lambda f: f.price)
+        self.return_flights.sort(key=lambda f: f.price)
+
         roundtrips = []
         for out in self.outgoing_flights:
             for ret in self.return_flights:
-                if out.price + ret.price <= self.budget:
+                if out.price + ret.price <= self.budget and len(roundtrips) < num:
                     roundtrips.append( RoundTrip(out, ret) )
+                else:
+                    return roundtrips
 
         return roundtrips
 

@@ -20,6 +20,7 @@ USE_PHANTOM_PATH = CONFIG['data']['use_custom_phantom_path'] == "true"
 PHANTOM_PATH     = CONFIG['data']['phantom_path']
 NUM_PASSENGERS   = CONFIG['data']['number_of_passengers']
 SCRAPE_INTERVAL  = CONFIG['data']['scrape_interval']
+MAX_SMS_PER_RUN  = CONFIG['data']['max_sms_per_run']
 ACCOUNT_SID      = CONFIG['twilio']['account_sid']
 AUTH_TOKEN       = CONFIG['twilio']['auth_token']
 FROM_NUMBER      = CONFIG['twilio']['from_number']
@@ -91,14 +92,12 @@ def scrape_flight_prices(flight):
 
 def scan():
     """ Scan Southwest for all flights that could create full itineraries. """
-
     send_SMS = init_SMS_messenger(ACCOUNT_SID, AUTH_TOKEN, TO_NUMBER, FROM_NUMBER)
     while True:
         send_SMS("Starting scan... ({time})".format(time=datetime.now().strftime("%H:%M:%S")))
 
         itineraries = construct_itineraries()
         for itin in itineraries:
-
             for flight in itin.generate_outgoing_flights():
                 print("Scraping for " + str(flight))
                 itin.outgoing_flights += scrape_flight_prices(flight)
@@ -116,15 +115,15 @@ def scan():
 
             log(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             log(itin)
-            log("========= Best Round-trip: =========")
+            log("========= Best roundtrip: =========")
             log(itin.get_best_roundtrip())
             log("====================================")
-            log("==== Round-trips within budget: ====")
+            log("==== Best roundtrips within budget: ====")
             trips_in_budget = itin.get_roundtrips_in_budget()
             for r in trips_in_budget:
                 log(r)
                 send_SMS(r)
-            if trips_in_budget:
+            if not trips_in_budget:
                 log("None")
             log("====================================")
 
@@ -135,7 +134,7 @@ def scan():
 
             f.close()
 
-        send_SMS("Finished scan at {time}".format(time=datetime.now().strftime("%H:%M:%S")))
+        # send_SMS("Finished scan at {time}".format(time=datetime.now().strftime("%H:%M:%S")))
 
         # Clean up and wait to scrape later.
         for itin in itineraries:
