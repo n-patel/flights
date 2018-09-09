@@ -1,9 +1,9 @@
-# southwest-scraper
-This Python script will allow you to find cheap roundtrips on Southwest, especially if you have flexible dates of travel (for example, any weekend in the next six months).  Since airlines change ticket prices throughout the week, leaving this running will allow you to wait until prices drop under a certain threshold before booking.  Once the script finds a suitable flight, it will send you a text message notification.  This program is different from other flight scrapers in that it considers multiple different airports and travel dates.
+# cheap-flight-finder
+This Python script will allow you to find cheap roundtrips flights on SW Airlines, especially if you have flexible dates of travel (for example, any weekend in the next six months).  Since airlines change ticket prices throughout the week, leaving this running will allow you to wait until prices drop under a certain threshold before booking.  Once the script finds a suitable flight, it will send you a text message notification.  This program is different from other flight scrapers in that it considers multiple different airports and travel dates.
 
 ## Installation
 ### Setup
-1. Clone this repository: `git clone https://github.com/n-patel/southwest-scraper`
+1. Clone this repository: `git clone https://github.com/n-patel/cheap-flight-finder`
 2. Ensure that you have Python3 and `pip3` installed.
 3. Install required modules with `pip3 install -r requirements.txt`
 4. [Download](http://phantomjs.org/download.html) PhantomJS and put the executable in this root directory (`southwest-scraper`).
@@ -36,6 +36,3 @@ This Python script will allow you to find cheap roundtrips on Southwest, especia
 
 ## Contributions
 Any contributions would be welcome!  Please try to follow the style conventions used throughout the rest of the script (though project-wide style changes are appreciated if appropriate -- just be sure to keep everything consistent).  If you find any bugs, please submit an issue and I'll take a look.
-
-## Attributions
-I used the Southwest.com scraping logic from [Warren Crasta's SWA-Scraper](https://github.com/wcrasta/SWA-Scraper).
