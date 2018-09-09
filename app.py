@@ -37,12 +37,12 @@ def construct_itineraries():
 
 
 def scrape_flight_prices(flight):
-    """ Scrapes Southwest and returns an array of matching Flights (with populated price attributes). """
+    """ Scrapes the website and returns an array of matching Flights (with populated price attributes). """
     if USE_PHANTOM_PATH:
         browser = webdriver.PhantomJS(PHANTOM_PATH)
     else:
         browser = webdriver.PhantomJS()
-    browser.get("https://www.southwest.com/")
+    browser.get("https://www.REPLACE_ME.com/")
 
     # Webdriver might be too fast. Tell it to slow down.
     # wait = WebDriverWait(browser, 120)
@@ -91,7 +91,7 @@ def scrape_flight_prices(flight):
 
 
 def scan():
-    """ Scan Southwest for all flights that could create full itineraries. """
+    """ Scan website for all flights that could create full itineraries. """
     send_SMS = init_SMS_messenger(ACCOUNT_SID, AUTH_TOKEN, TO_NUMBER, FROM_NUMBER)
     while True:
         send_SMS("Starting scan... ({time})".format(time=datetime.now().strftime("%H:%M:%S")))
