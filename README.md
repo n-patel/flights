@@ -6,7 +6,7 @@ This Python app will help you to find cheap roundtrips flights, especially if yo
 1. Clone this repository: `git clone https://github.com/n-patel/cheap-flight-finder`
 2. Ensure that you have Python3 and `pip3` installed.
 3. Install required modules with `pip3 install -r requirements.txt`
-4. [Download](http://phantomjs.org/download.html) PhantomJS and put the executable in this root directory (`southwest-scraper`).
+4. [Download](http://phantomjs.org/download.html) PhantomJS and put the executable in this root directory (`cheap-flight-finder`).
     * Alternatively, you can place the executable in `/usr/local/bin` folder (Mac/Linux) or in your Scripts folder (Windows).
 5. Register for a free account on [Twilio](https://www.twilio.com) and get a phone number.
 
