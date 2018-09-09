@@ -1,5 +1,5 @@
 # cheap-flight-finder
-This Python script will allow you to find cheap roundtrips flights on SW Airlines, especially if you have flexible dates of travel (for example, any weekend in the next six months).  Since airlines change ticket prices throughout the week, leaving this running will allow you to wait until prices drop under a certain threshold before booking.  Once the script finds a suitable flight, it will send you a text message notification.  This program is different from other flight scrapers in that it considers multiple different airports and travel dates.
+This Python app will help you to find cheap roundtrips flights, especially if you have flexible dates of travel (for example, any weekend in the next six months).  Since airlines change ticket prices throughout the week, leaving this running will allow you to wait until prices drop under a certain threshold before booking.  Once the script finds a suitable flight, it will send you a text message notification.  This program considers multiple different airports and travel dates, allowing you to find flights such as "Flights departing from either \[OAK or SFO\] going to either \[DCA or BWI\] on any weekend for the next six months".
 
 ## Installation
 ### Setup
@@ -31,7 +31,7 @@ This Python script will allow you to find cheap roundtrips flights on SW Airline
     ```
 
 ### Execution
-1. Run `python3 app.py`.  Leave it running, and it will scrape according to the interval you configured and notify you via text for important events (start scraping, stop scraping, found a cheap flight).  You can also leave this script running on a remote server.
+1. Run `python3 app.py`.  Leave it running, and it will notify you via text for important events (started, stopped, found a cheap flight).  You can also leave this script running on a remote server.
 2. If you want to add/remove Itineraries, you must restart the program (Ctrl-C to stop, then follow the above step after editing the Python file).
 
 ## Contributions
